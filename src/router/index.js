@@ -9,10 +9,20 @@ const router = createRouter({
       name: 'home',
       component: Index,
     },
+    {
+      path: '/class',
+      name: 'class',
+      component: () => import('../views/Class/index.vue'),
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('../views/Cart/index.vue'),
+    },
     // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import('../views/AboutView.vue'),
+    //   path: '/class/:id',
+    //   name: 'class-detail',
+    //   component: () => import('../views/Class/_id.vue'),
     // },
   ],
 })

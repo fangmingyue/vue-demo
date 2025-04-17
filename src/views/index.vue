@@ -1,7 +1,12 @@
 <script setup></script>
 
 <template lang="pug">
-  div(class="text-3xl") 123
+  #Home
+    .container
+      div(class="py-4")
+        h1(class="text-3xl max-lg:text-2xl text-md:text-base") 首頁
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped>
+
+</style>
