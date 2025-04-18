@@ -3,8 +3,6 @@ import { get_data, post_data } from '@/api/api.js'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/counter.js'
-import { Loading } from '@element-plus/icons-vue'
-import { h } from 'vue'
 import { ElNotification } from 'element-plus'
 import dayjs from 'dayjs'
 
@@ -121,7 +119,6 @@ const getClassData = async () => {
   }
 }
 
-
 // 生命週期－－－－－－
 onMounted(async()=>{
   await getClassData();
@@ -137,9 +134,10 @@ onMounted(async()=>{
           el-breadcrumb-item(:to="{ path: '/' }") 首頁
           el-breadcrumb-item 課程列表
       div(v-if="loading" class="text-center py-20 text-gray-500")
-        span(ml-2) 資料載入中...
+        div(class="w-full flex justify-center")
+          img(src="../../../public/loading.gif" class="max-w-[250px]")
       .class-list(class="grid grid-cols-12 gap-4")
-        div(v-for="item in classListData" :key="item.id" class="col-span-3 bg-[#e0f2fe] rounded-sm p-4 max-lg:col-span-4 max-md:col-span-6 max-sm:col-span-12")
+        div(v-for="item in classListData" :key="item.id" class="relative col-span-3 bg-[#e0f2fe] rounded-sm p-4 max-xl:col-span-4 max-md:col-span-6 max-sm:col-span-12")
           h2(class="font-semibold text-lg mb-2 min-h-[64px]") {{ item.name }}
           h6 課程時間
           div(class="text-sm py-2") {{ dayjs(item.startDateTime).format('YYYY-MM-DD HH:mm:ss')}} ~ {{ dayjs(item.endDateTime).format('YYYY-MM-DD HH:mm:ss') }}
@@ -159,7 +157,14 @@ onMounted(async()=>{
                 RouterLink(:to="`/cart`" class="p-2 rounded-sm text-white bg-[#0369a1] cursor-pointer" @click="addCartNow(item)") 立即結帳
               //- 無開放課程
               div(v-else)
-                div(class="inline-flex p-2 rounded-sm text-white bg-[#a3a3a3] cursor-not-allowed") {{ item.status }}
+                div(class="flex items-center")
+                  div(v-if="item.status === '尚未開始'" class="mr-4 cursor-pointer")
+                    el-tooltip(effect="dark" content="立即預約提醒" placement="top")
+                      img(src="../../../public/clock.svg" class="w-[28px] h-[28px]")
+                  div(class="inline-flex p-2 rounded-sm text-white bg-[#a3a3a3] cursor-not-allowed") {{ item.status }}
+          //-如果已結束
+          .over(v-if="item.status === '已結束'" class="absolute left-0 top-0 w-full h-full bg-[#00000040] flex justify-center items-center")
+            div(class="text-white text-3xl font-semibold bg-[#00000080] w-[120px] h-[120px] rounded-full flex justify-center items-center tracking-wider") 已結束
 </template>
 
 <style scoped>
