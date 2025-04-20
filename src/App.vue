@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { useCartStore } from '@/stores/counter.js'
 import Header from "@/components/layouts/header/index.vue"
 import Footer from "@/components/layouts/footer/index.vue"

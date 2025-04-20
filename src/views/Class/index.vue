@@ -137,15 +137,15 @@ onMounted(async()=>{
         div(class="w-full flex justify-center")
           img(src="../../../public/loading.gif" class="max-w-[250px]")
       .class-list(class="grid grid-cols-12 gap-4")
-        div(v-for="item in classListData" :key="item.id" class="relative col-span-3 bg-[#e0f2fe] rounded-sm p-4 max-xl:col-span-4 max-md:col-span-6 max-sm:col-span-12")
+        div(v-for="item in classListData" :key="item.id" class="relative col-span-3 bg-[#e0f2fe] rounded-sm p-4 shadow-sm max-xl:col-span-4 max-md:col-span-6 max-sm:col-span-12")
           h2(class="font-semibold text-lg mb-2 min-h-[64px]") {{ item.name }}
-          h6 課程時間
+          h6(class="border-b border-[#00000010] pb-2 text-[#00000095]") ⏲︎ 課程時間
           div(class="text-sm py-2") {{ dayjs(item.startDateTime).format('YYYY-MM-DD HH:mm:ss')}} ~ {{ dayjs(item.endDateTime).format('YYYY-MM-DD HH:mm:ss') }}
           div(class="max-h-[420px] overflow-hidden")
-            img(:src="item.imageUrl" class="w-full h-auto max-h-[420px] object-cover")
+            img(:src="item.imageUrl" class="w-full h-auto max-h-[420px] object-cover border-[4px] border-[#ffffff60] transition-transform duration-300 ease-in-out hover:scale-125")
           .info(class="bg-white p-4 mt-4")
             .info-data(class="flex justify-between mb-2")
-              .price 價格:{{ item.price }}
+              .price 價格: {{ item.price }}
               div(class="flex")
                 .limit(class="p-1 text-white rounded-sm text-sm mr-1" :style="{ backgroundColor: classLimit(item.ageRestriction) }") {{ item.ageRestriction }}
                 .type(class="p-1 text-white rounded-sm text-sm" :style="{ backgroundColor: classType(item.displayCategory) }") {{ item.displayCategory }}
@@ -160,7 +160,7 @@ onMounted(async()=>{
                 div(class="flex items-center")
                   div(v-if="item.status === '尚未開始'" class="mr-4 cursor-pointer")
                     el-tooltip(effect="dark" content="立即預約提醒" placement="top")
-                      img(src="../../../public/clock.svg" class="w-[28px] h-[28px]")
+                      img(src="../../../public/clock.svg" class="w-[28px] h-[28px] animate-swing")
                   div(class="inline-flex p-2 rounded-sm text-white bg-[#a3a3a3] cursor-not-allowed") {{ item.status }}
           //-如果已結束
           .over(v-if="item.status === '已結束'" class="absolute left-0 top-0 w-full h-full bg-[#00000040] flex justify-center items-center")
@@ -171,4 +171,19 @@ onMounted(async()=>{
   #Class{
     padding:36px 0 64px;
   }
+
+  @keyframes swing {
+  0%   { transform: rotate(0deg); }
+  5%   { transform: rotate(15deg); }
+  10%  { transform: rotate(0deg); }
+  15%  { transform: rotate(-15deg); }
+  20%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-swing {
+  animation: swing 3s ease-in-out infinite;
+}
+
+
 </style>

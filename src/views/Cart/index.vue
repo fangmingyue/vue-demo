@@ -51,6 +51,7 @@ const buy = () =>{
       })
       return
     }
+    coupon.value = ''
     ElMessage({
       message: '您已購買成功',
       type: 'success',
@@ -91,8 +92,6 @@ const addCoupon = () =>{
 onMounted(() => {
   let stored = JSON.parse(localStorage.getItem('classList'));
   cartList.value = Array.isArray(stored) ? stored : [];
-
-  // 不先算總金額，等 watch 自動計算
 })
 
 // watch－－－－－－
@@ -145,7 +144,7 @@ watch([cartList, cartListCheck, coupon], () => {
       //- 折扣模擬
       .coupon
         div(class="flex mt-4 max-sm:flex-col")
-          div(class="w-[64px] mt-1 max-sm:mb-") 折價券
+          div(class="w-[64px] mt-1 max-sm:mb-2") 折價券
           div(class="flex flex-col")
             div(class="flex")
               el-input(v-model="coupon" style="width: 200px" placeholder="請填入折價券" clearable)
@@ -153,8 +152,8 @@ watch([cartList, cartListCheck, coupon], () => {
             div(class="mt-2")
               div(class="text-sm text-[var(--primary-400)]") 單筆訂單只限用一張折價券。
               div(class="text-sm text-[var(--primary-400)]") 取消訂單，︀辦理整筆退費後之保留商品為符合折價券使用條件時，︀若折價券仍在使用期間內，︀將退至帳戶中。
-      div(class="flex justify-between items-center mt-4 border-t border-[#eeeeee] pt-4 max-md:flex-col")
-        div
+      div(class="flex justify-between items-start mt-4 border-t border-[#eeeeee] pt-4 max-md:flex-col max-md:items-center")
+        .cart-info
           div(class="mb-1") 小計 : NT$ {{ totalMoneyOrigin }} 元
           div 折價券 : - NT {{ coupon === 'CGYKO92689' ? 200 : 0 }}
           .tip(v-if="coupon === 'CGYKO92689' && totalMoneyOrigin < 1000" class="text-[red] text-sm") *折價券小計必須大於1000元才可以使用
