@@ -1,4 +1,24 @@
-<script setup></script>
+<script setup>
+import { useCartStore } from '@/stores/counter.js'
+import { onMounted } from 'vue';
+
+// 資料－－－－－－ 
+const store = useCartStore()
+// 接收事件－－－－－－
+
+// 流程－－－－－－
+
+// 函式－－－－－－
+
+// Api－－－－－－
+
+// 生命週期－－－－－－
+onMounted(()=>{
+  if(localStorage.getItem('isLogin') === 'true'){
+    store.isLoginPinia = true
+  }
+})
+</script>
 
 <template lang="pug">
   #Home
