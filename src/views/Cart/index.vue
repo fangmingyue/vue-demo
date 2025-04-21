@@ -125,6 +125,7 @@ watch([cartList, cartListCheck, coupon], () => {
         style="width: 100%; height:100%"
         :default-sort="{ prop: '', order: ''}"
         border
+        empty-text="沒有商品"
         :show-overflow-tooltip="true"
         header-row-class-name="table-header"
       )

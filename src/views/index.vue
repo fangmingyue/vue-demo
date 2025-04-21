@@ -13,11 +13,7 @@ const store = useCartStore()
 // Api－－－－－－
 
 // 生命週期－－－－－－
-onMounted(()=>{
-  if(localStorage.getItem('isLogin') === 'true'){
-    store.isLoginPinia = true
-  }
-})
+
 </script>
 
 <template lang="pug">

@@ -11,6 +11,9 @@ const store = useCartStore();
 onMounted(()=>{
   let stored = JSON.parse(localStorage.getItem('classList'));
   store.count = Array.isArray(stored) ? stored.length : 0;
+  if(localStorage.getItem('isLogin') === 'true'){
+    store.isLoginPinia = true
+  }
 })
 </script>
 
